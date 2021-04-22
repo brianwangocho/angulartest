@@ -2,7 +2,7 @@ import { AuthService } from './../service/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Config } from 'protractor';
+import { Config, error } from 'protractor';
 
 @Component({
   selector: 'app-customers',
@@ -27,8 +27,17 @@ export class CustomersComponent implements OnInit {
     this.get_customers();
 
   }
-  get_balance(data){
-    alert(data)
+  get_balance(id){
+
+
+    this.auth.get_with_Auth(`accounts/${id}`).then( (data:any)=>{
+        console.log(data);
+        alert( `balance is ${data.balance}`)
+    },(error)=>{
+      throw error;
+    })
+
+
   }
 
   search(){

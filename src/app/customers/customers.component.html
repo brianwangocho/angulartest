@@ -28,13 +28,16 @@
     </th>
   </tr>
 
-  <tr *ngFor="let row of customers_list ">
+  <tr *ngFor="let row of customers_list | paginate:{id:'customertables',itemsPerPage:10,currentPage:p}">
 
     <td *ngFor = "let column of table_head">
         {{row[column]}}
     </td>
-    <td><button type="button"  class="btn btn-outline-dark" (click)="get_balance(1)">View Balance</button></td>
+    <td><button type="button"  class="btn btn-outline-dark" (click)="get_balance(row.customerId)">View Balance</button></td>
   </tr>
 </table>
+<div>
+  <pagination-controls id="customertables" directionLinks="true" (pageChange)="p = $event"></pagination-controls>
+</div>
 
 
